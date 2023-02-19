@@ -1,12 +1,16 @@
 package app.windows;
 
-import java.awt.Image;
-import java.io.File;
+
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -60,10 +64,26 @@ public class FileSelection extends javax.swing.JFrame {
         selectFileButton = new javax.swing.JButton();
         fileName = new javax.swing.JLabel();
         launchButton = new javax.swing.JButton();
+        labelImage = new JLabel();
+
+        try{   
+            image = ImageIO.read(new File("src/img/wp_logo.png")).getScaledInstance(100,100,Image.SCALE_DEFAULT);
+            labelImage.setIcon(new ImageIcon(image));
+            labelImage.setLocation(100, 100);
+
+            image = ImageIO.read(new File("src/img/icon.png"));
+            setIconImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(500, 300, 0, 0));
+        setLocationRelativeTo(null);
+        setResizable(false);
 
+        
         mainTitle.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         mainTitle.setText("Whatsapp Analyzer");
 
@@ -92,6 +112,8 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
 
+        
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,18 +122,16 @@ public class FileSelection extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(message)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(selectFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fileName)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(mainTitle)
-                        .addGap(64, 171, Short.MAX_VALUE))))
+                        .addComponent(selectFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fileName))
+                    .addComponent(message)
+                    .addComponent(mainTitle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(140, Short.MAX_VALUE)
                 .addComponent(launchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(111, 111, 111))
         );
@@ -119,18 +139,21 @@ public class FileSelection extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(message)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectFileButton)
-                    .addComponent(fileName))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(message)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(selectFileButton)
+                            .addComponent(fileName)))
+                    .addComponent(labelImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(launchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
+        
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -174,5 +197,7 @@ public class FileSelection extends javax.swing.JFrame {
     private javax.swing.JLabel mainTitle;
     private javax.swing.JLabel message;
     private javax.swing.JButton selectFileButton;
+    private java.awt.Image image;
+    private javax.swing.JLabel labelImage;
     // End of variables declaration//GEN-END:variables
 }
