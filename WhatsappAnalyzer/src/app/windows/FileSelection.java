@@ -1,7 +1,6 @@
 package app.windows;
 
-
-
+import app.control.Controller;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -10,44 +9,29 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
  *
  * @author Luigi Salcedo
  */
-public class FileSelection extends javax.swing.JFrame {
-
-    
-    private final JPanel imageZone = new JPanel();
+public class FileSelection extends javax.swing.JFrame 
+{
     private static File chatFile;
+    private Image image;
+    private JLabel labelImage = new JLabel();
+    private JPanel imageZone = new JPanel();
     
     /**
      * Creates new form fileSelector
      */
     public FileSelection() {
         initComponents();
-        // loadImage();
+        loadImage();
         launchButton.setEnabled(false);
-        this.setTitle("Whatsapp Analyser");
+        this.setTitle("Whatsapp Analyzer");
     }
-    
-    /*public final void loadImage()
-    {
-        ImageIcon img = new ImageIcon("src\\img\\wp_logo.png");
-        
-        System.out.println("We are here");
-        
-        JLabel jl = new JLabel();
-        
-        jl.setIcon(img);
-        
-        imageZone.add(jl);
-        
-        jl.setBounds(250, 30, 30, 30);
-        
-        imageZone.setVisible(true);
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,32 +42,16 @@ public class FileSelection extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        FileChooser = new javax.swing.JFileChooser();
+        fileChooser = new javax.swing.JFileChooser();
         mainTitle = new javax.swing.JLabel();
         message = new javax.swing.JLabel();
         selectFileButton = new javax.swing.JButton();
         fileName = new javax.swing.JLabel();
         launchButton = new javax.swing.JButton();
-        labelImage = new JLabel();
-
-        try{   
-            image = ImageIO.read(new File("src/img/wp_logo.png")).getScaledInstance(100,100,Image.SCALE_DEFAULT);
-            labelImage.setIcon(new ImageIcon(image));
-            labelImage.setLocation(100, 100);
-
-            image = ImageIO.read(new File("src/img/icon.png"));
-            setIconImage(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(500, 300, 0, 0));
-        setLocationRelativeTo(null);
-        setResizable(false);
 
-        
         mainTitle.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         mainTitle.setText("Whatsapp Analyzer");
 
@@ -112,8 +80,6 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
 
-        
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,17 +87,15 @@ public class FileSelection extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(message)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fileName))
-                    .addComponent(message)
                     .addComponent(mainTitle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(140, Short.MAX_VALUE)
+                .addContainerGap(152, Short.MAX_VALUE)
                 .addComponent(launchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(111, 111, 111))
         );
@@ -139,65 +103,108 @@ public class FileSelection extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(mainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(message)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selectFileButton)
-                            .addComponent(fileName)))
-                    .addComponent(labelImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(mainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(message)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectFileButton)
+                    .addComponent(fileName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(launchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+       
+    /*
+     *  Método listener: botón "Select file".
+     * 
+     *  Abrir el selecto de archivos.
+     */
     private void selectFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFileButtonActionPerformed
 
-        FileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        FileChooser.setFileFilter(new FileNameExtensionFilter("Archivo de texto plano", "txt"));
-        FileChooser.showOpenDialog(this);
-        FileChooser.setVisible(true);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo de texto plano", "txt"));
+        fileChooser.showOpenDialog(this);
         
-        chatFile = FileChooser.getSelectedFile();
+        chatFile = fileChooser.getSelectedFile();
         
-        if(!chatFile.getName().equals("") && chatFile != null)
+        if(chatFile != null)
         {
-            fileName.setText(chatFile.getName());
-            launchButton.setEnabled(true);
+            if(!chatFile.getName().equals(""))
+            {
+                fileName.setText(chatFile.getName());
+                launchButton.setEnabled(true);   
+            }
         }
         else
         {
             fileName.setText("No file selected yet.");
             launchButton.setEnabled(false);
-        }
-        
+        }   
     }//GEN-LAST:event_selectFileButtonActionPerformed
 
+    /*
+     *  Método listener: botón "Launch".
+     *  
+     *  Ejecutar el procesamiento del archivo seleccionado.
+     */
     private void launchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchButtonActionPerformed
-        // TODO add your handling code here:
+        
+        this.setExtendedState(ICONIFIED);
+        
+        LoadingData ld = new LoadingData();
+        
+        ld.setVisible(true);
+        
+        Controller.readFile(ld);
+        
     }//GEN-LAST:event_launchButtonActionPerformed
 
     /*
-    /**
-     * @param args the command line arguments
+     *  Métodos propios.
      */
     
+    /*
+     *  Método: loadImage()
+     *
+     *  Se encarga de carga la imagen del menú inicial y mostrarla en pantalla (Por corregir)
+     */
+    public final void loadImage()
+    {
+        try 
+        {
+            image = ImageIO.read(new File("src\\img\\wp_logo.png")).getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+            
+            labelImage.setIcon(new ImageIcon(image));
+            labelImage.setLocation(100, 100);
+            
+            labelImage.setVisible(true);
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
 
-
+        imageZone.add(labelImage);
+        
+        imageZone.setBounds(100, 100, 100, 100);
+        imageZone.setVisible(true);
+    }
+    
+    public static File getFile()
+    {
+        return chatFile;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel fileName;
     private javax.swing.JButton launchButton;
     private javax.swing.JLabel mainTitle;
     private javax.swing.JLabel message;
     private javax.swing.JButton selectFileButton;
-    private java.awt.Image image;
-    private javax.swing.JLabel labelImage;
     // End of variables declaration//GEN-END:variables
 }
