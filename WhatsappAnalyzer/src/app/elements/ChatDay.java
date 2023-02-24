@@ -27,7 +27,7 @@ public class ChatDay
     
     // Atributos
     private String date;
-    ArrayList<String> messages;
+    private ArrayList<String> messages;
     private String day;
     private String month;
     private String year;
@@ -65,6 +65,33 @@ public class ChatDay
     public void setYear(String year) {
         this.year = year;
     }
+    
+    // Getters
+    public static String[] getMonths() {
+        return months;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public ArrayList<String> getMessages() {
+        return messages;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+    
+    
     @Override
     public String toString()
     {
