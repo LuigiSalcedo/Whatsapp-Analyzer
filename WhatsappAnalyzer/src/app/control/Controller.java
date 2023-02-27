@@ -44,6 +44,9 @@ public class Controller
             // Almacenar información del mensaje
             String [] messageInfo = null;
             
+            // Almacenar la fecha del conversor
+            String dateAux = null;
+            
             while((chatLine = br.readLine()) != null)
             {
                 // Escribiendo de forma factible la información del chat.
@@ -75,14 +78,16 @@ public class Controller
                 
                 if(ChatData.chatDays.isEmpty())
                 {
-                    ChatData.chatDays.add(new ChatDay(date));
+                    ChatData.chatDaysHash.put(ChatDay.convertStringToDate(date), new ChatDay(date));
+                    ChatData.chatDays.add(ChatData.chatDaysHash.get(ChatDay.convertStringToDate(date)));
                     currentDay = ChatData.chatDays.get(0);
                     continue;
                 }
                 
                 if(!currentDay.getDate().equals(date))
                 {
-                    ChatData.chatDays.add(new ChatDay(date));
+                    dateAux = ChatDay.convertStringToDate(date);
+                    ChatData.chatDaysHash.put(date, new ChatDay(date));
                     currentDay = ChatData.chatDays.get(ChatData.nDays() - 1);
                 }
                 

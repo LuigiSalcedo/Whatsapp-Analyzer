@@ -15,6 +15,7 @@ public class ChatData
 {
     public static ArrayList<Emoji> emojis = new ArrayList<>();
     public static ArrayList<ChatDay> chatDays = new ArrayList<>();
+    public static HashMap<String, ChatDay> chatDaysHash = new HashMap<>();
     public static ArrayList<ChatDay> sortedDays = new ArrayList<>();
     public static ArrayList<Word> sortedWords = new ArrayList<>();
     public static HashMap<String, Word> usedWords = new HashMap<>();

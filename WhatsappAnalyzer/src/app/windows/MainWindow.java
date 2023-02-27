@@ -1,5 +1,10 @@
 package app.windows;
 
+import app.control.ChatData;
+import app.elements.ChatDay;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Luigi Salcedo
@@ -7,8 +12,21 @@ package app.windows;
 public class MainWindow extends javax.swing.JFrame 
 {
 
-    public MainWindow() {
+    private ComboBoxModel<String> comboBoxElements = new DefaultComboBoxModel();
+    
+    public MainWindow() 
+    {
+        loadComboBoxElements();
         initComponents();
+    }
+    
+    private void loadComboBoxElements()
+    {   
+        for(ChatDay day : ChatData.chatDays)
+        {
+            chatSelectionerBox.addItem(day.getDate());
+        }
+        
     }
 
     /**
@@ -20,24 +38,45 @@ public class MainWindow extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        chatSelectionerBox = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        chatSelectionerBox.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        chatSelectionerBox.setToolTipText("");
+        chatSelectionerBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatSelectionerBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chatSelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(605, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chatSelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(442, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chatSelectionerBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSelectionerBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatSelectionerBoxActionPerformed
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> chatSelectionerBox;
     // End of variables declaration//GEN-END:variables
 }

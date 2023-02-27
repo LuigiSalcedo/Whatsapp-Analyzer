@@ -91,10 +91,23 @@ public class ChatDay
         return year;
     }
     
-    
     @Override
     public String toString()
     {
         return day + " de " + ChatDay.months[Integer.parseInt(month)-1] + " del " + year;
     }    
+    
+    public static String convertStringToDate(String dateInfo)
+    {
+	String date = dateInfo;
+		
+	String [] dayInfo = date.split("/");
+		
+	String day = dayInfo[0];
+	String month = dayInfo[1];
+	String year = dayInfo[2];
+        
+        return day + " de " + ChatDay.months[Integer.parseInt(month)-1] + " del " + year;
+        
+    }
 }
