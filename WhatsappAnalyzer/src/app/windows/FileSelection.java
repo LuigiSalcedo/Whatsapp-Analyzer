@@ -157,10 +157,14 @@ public class FileSelection extends javax.swing.JFrame
         
         LoadingData ld = new LoadingData();
         
+        ld.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
         ld.setVisible(true);
         
         Controller.readFile(ld);
         Controller.setStats(ld);
+        
+        ld.setVisible(false);
         
     }//GEN-LAST:event_launchButtonActionPerformed
 

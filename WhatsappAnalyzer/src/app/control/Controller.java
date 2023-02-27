@@ -60,11 +60,11 @@ public class Controller
                     {
                         try
                         {
-                            for(String i : messageInfo[0].replace(".", "").split("/"))
+                            for(String i : messageInfo[0].replace(",", "").split("/"))
                             {
                                 Integer.parseInt(i);
                             }
-                            date = messageInfo[0].replace(".", "");
+                            date = messageInfo[0].replace(",", "");
                         }
                         catch(NumberFormatException e)
                         {
@@ -404,7 +404,7 @@ public class Controller
     {
         try
         {
-            BufferedReader br = new BufferedReader(new FileReader(new File("src\\emoji.data")));
+            BufferedReader br = new BufferedReader(new FileReader(new File("src\\emoji_data\\emojis.txt")));
             String emojiLine;
             
             while((emojiLine = br.readLine()) != null)
