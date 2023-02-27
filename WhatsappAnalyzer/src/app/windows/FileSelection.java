@@ -160,6 +160,7 @@ public class FileSelection extends javax.swing.JFrame
         ld.setVisible(true);
         
         Controller.readFile(ld);
+        Controller.setStats(ld);
         
     }//GEN-LAST:event_launchButtonActionPerformed
 

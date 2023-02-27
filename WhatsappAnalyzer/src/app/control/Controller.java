@@ -114,7 +114,7 @@ public class Controller
      *  
      *  Interpretar información y hallar estádisticas.
      */
-    public static void setStats()
+    public static void setStats(LoadingData ld)
     {
         countMessages(); // Contar mensajes
         detectNames(); // Detectar nombre
@@ -123,7 +123,12 @@ public class Controller
         calcAverage(); // Calcular promedio de mensajes
         sortDays(); // Ordenar días por número de mensajes
         countParticipations(); // Contar los mensajes por persona
+        ld.getLoadingChatDataText().setText("Organizando información del chat . . . (Listo)");
+        
         loadEmojiData(); // Cargar la información de los emojis
+        countEmojis(); // Conteo de emojis
+        ChatData.emojis = sortEmojis(ChatData.emojis); // Organizar emojis en base a los más usados
+        ld.getLoadingEmojiDataText().setText("Cargando emojis disponibles . . . (Listo)");
     }
     
     /*
@@ -418,5 +423,68 @@ public class Controller
             
             javax.swing.JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+    /*
+     *  Método: "countEmojis()"
+     * 
+     *  Iniciará el conteo de los emojis encontrado dentro del chat.
+     */
+    private static void countEmojis()
+    {
+        String aux;
+        
+        for(ChatDay day : ChatData.chatDays)
+        {
+            for(String message : day.getMessages())
+            {
+                aux = new String(message);
+                for(Emoji emoji : ChatData.emojis)
+                {
+                    while(aux.contains(emoji.getValue()))
+                    {
+                        emoji.incrementAppearances();
+                        aux = aux.replaceFirst(emoji.getValue(), "");
+                    }
+                }
+            }
+        }
+    }
+    
+    /*
+     *  Método: "sortEmojis(ArrayList<Emoji>)"
+     *
+     *  Organizar los emojis de más a meno usados.
+     *
+     *  Se usará el algoritmo "QuickSort"
+     */
+    private static ArrayList<Emoji> sortEmojis(ArrayList<Emoji> array)
+    {
+        if(array.size() <= 0) return array;
+        
+        ArrayList<Emoji> left = new ArrayList<>();
+        ArrayList<Emoji> rigth = new ArrayList<>();
+        
+        Emoji piv = array.get(0);
+        
+        for(int i = 1; i <= array.size(); i++)
+        {
+            if(array.get(i).getAppaerances() < piv.getAppaerances())
+            {
+                left.add(array.get(i));
+            }
+            else
+            {
+                rigth.add(array.get(i));
+            }
+        }
+        
+        rigth = sortEmojis(rigth);
+        left = sortEmojis(left);
+        
+        left.add(piv);
+        left.addAll(rigth);
+        
+        return left;
     }
 }

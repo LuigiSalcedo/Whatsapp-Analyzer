@@ -25,4 +25,9 @@ public class Emoji
     {
         return value;
     }
+    
+    public void incrementAppearances()
+    {
+        appaerances += 1;
+    }
 }
