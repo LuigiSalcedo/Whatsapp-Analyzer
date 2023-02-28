@@ -32,7 +32,8 @@ public class LoadingData extends javax.swing.JFrame {
         loadingEmojiDataText = new javax.swing.JLabel();
         ladoSettingsDataText = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Loading data, please wait . . .");
 
         loadingChatDataText.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         loadingChatDataText.setText("Cargando información del chat . . . (Espere)");

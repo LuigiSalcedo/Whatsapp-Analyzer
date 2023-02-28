@@ -2,17 +2,21 @@ package app.windows;
 
 import app.control.ChatData;
 import app.elements.ChatDay;
-import javax.swing.ComboBoxModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import static java.awt.event.WindowEvent.WINDOW_DEICONIFIED;
+
 /**
  *
  * @author Luigi Salcedo
  */
 public class MainWindow extends javax.swing.JFrame 
-{   
+{    
     public MainWindow() 
     {
         initComponents();
-        loadComboBoxElements();    
+        loadComboBoxElements();
+        loadSettings();
     }
     
     private void loadComboBoxElements()
@@ -21,6 +25,20 @@ public class MainWindow extends javax.swing.JFrame
         {
             chatSelectionerBox.addItem(day.toString());
         }
+    }
+    
+    private void loadSettings()
+    {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter()
+                {
+                    @Override
+                    public void windowClosing(WindowEvent e)
+                    {
+                        FileSelection.fs.setVisible(true);
+                    }
+                });
     }
 
     /**
@@ -34,10 +52,17 @@ public class MainWindow extends javax.swing.JFrame
 
         chatSelectionerBox = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Chat stats");
 
+        chatSelectionerBox.setBackground(new java.awt.Color(231, 255, 229));
         chatSelectionerBox.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        chatSelectionerBox.setMaximumRowCount(20);
         chatSelectionerBox.setToolTipText("");
+        chatSelectionerBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(228, 250, 231), 1, true));
+        chatSelectionerBox.setFocusable(false);
+        chatSelectionerBox.setLightWeightPopupEnabled(false);
+        chatSelectionerBox.setRequestFocusEnabled(false);
         chatSelectionerBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chatSelectionerBoxActionPerformed(evt);

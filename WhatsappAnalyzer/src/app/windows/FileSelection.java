@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 public class FileSelection extends javax.swing.JFrame 
 {
     private static File chatFile;
+    static FileSelection fs;
     private Image image;
     private JLabel labelImage = new JLabel();
     private JPanel imageZone = new JPanel();
@@ -153,28 +154,21 @@ public class FileSelection extends javax.swing.JFrame
      */
     private void launchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchButtonActionPerformed
         
-        this.setExtendedState(ICONIFIED);
-        
         LoadingData ld = new LoadingData();
         
         ld.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         ld.setVisible(true);
         
-        try
-        {
-            Thread.sleep(1000);
-        }
-        catch(InterruptedException e)
-        {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error: al cargar la información.");
-        }
-        
         Controller.readFile(ld);
         Controller.setStats(ld);
         
         ld.setVisible(false);
        
+        fs = this;
+        
+        this.setVisible(false);
+        
         MainWindow mw = new MainWindow();
         
         mw.setVisible(true);
@@ -216,7 +210,6 @@ public class FileSelection extends javax.swing.JFrame
     {
         return chatFile;
     }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser fileChooser;
