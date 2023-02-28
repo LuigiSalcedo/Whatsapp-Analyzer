@@ -35,12 +35,6 @@ public class ChatDay
     public ChatDay(String dateInfo)
     {
 	this.date = dateInfo;
-		
-	String [] dayInfo = date.split("/");
-		
-	day = dayInfo[0];
-	month = dayInfo[1];
-	year = dayInfo[2];
 
 	messages = new ArrayList<>();        
     }
@@ -94,7 +88,7 @@ public class ChatDay
     @Override
     public String toString()
     {
-        return day + " de " + ChatDay.months[Integer.parseInt(month)-1] + " del " + year;
+        return date;
     }    
     
     public static String convertStringToDate(String dateInfo)

@@ -76,19 +76,21 @@ public class Controller
                     }
                 }
                 
+                dateAux = ChatDay.convertStringToDate(date).trim();
+                
                 if(ChatData.chatDays.isEmpty())
                 {
-                    ChatData.chatDaysHash.put(ChatDay.convertStringToDate(date), new ChatDay(date));
-                    ChatData.chatDays.add(ChatData.chatDaysHash.get(ChatDay.convertStringToDate(date)));
+                    ChatData.chatDaysHash.put(dateAux, new ChatDay(dateAux));
+                    ChatData.chatDays.add(ChatData.chatDaysHash.get(dateAux));
                     currentDay = ChatData.chatDays.get(0);
                     continue;
                 }
                 
-                if(!currentDay.getDate().equals(date))
+                if(!currentDay.getDate().equals(dateAux))
                 {
-                    dateAux = ChatDay.convertStringToDate(date);
-                    ChatData.chatDaysHash.put(date, new ChatDay(date));
-                    currentDay = ChatData.chatDays.get(ChatData.nDays() - 1);
+                    ChatData.chatDaysHash.put(dateAux, new ChatDay(dateAux));
+                    ChatData.chatDays.add(ChatData.chatDaysHash.get(dateAux));
+                    currentDay = ChatData.chatDaysHash.get(dateAux);
                 }
                 
                 if(currentDay == null)
@@ -339,36 +341,49 @@ public class Controller
     /*
      *  Método: "sortDaysByMessages(ArrayList<ChatDay>)"
      *
-     *  Aplicación del algoritmo "QuickSort" para ordenar los días. 
+     *  Aplicación del algoritmo "MergeSort" para ordenar los días. 
      */
     private static ArrayList<ChatDay> sortDaysByMessages(ArrayList<ChatDay> array)
     {
         if(array.size() <= 1) return array;
         
-        ArrayList<ChatDay> left = new ArrayList<ChatDay>();
-        ArrayList<ChatDay> rigth = new ArrayList<ChatDay>();
-        
-        ChatDay piv = array.get(0);
-        
-        for(int i = 1; i < array.size(); i++)
-        {
-            if(array.get(i).getMessages().size() > piv.getMessages().size())
-            {
-                left.add(array.get(i));
-            }
-            else
-            {
-                rigth.add(array.get(i));
-            }
-        }
+        ArrayList<ChatDay> left = new ArrayList<ChatDay>(array.subList(0, array.size()/2));
+        ArrayList<ChatDay> rigth = new ArrayList<ChatDay>(array.subList(array.size()/2, array.size()));
         
         left = sortDaysByMessages(left);
         rigth = sortDaysByMessages(rigth);
         
-        left.add(piv);
-        left.addAll(rigth);
+        return mergeMessages(left, rigth);
+    }
+    
+    /*
+     *  Método: "megeMessages(ArrayList<ChatDay>, ArrayList<ChatDay>)"
+     *  
+     *  Mezcla ordenada de dos ArrayList de ChatDay en base a su número de mensajes.
+     */
+    
+    private static ArrayList<ChatDay> mergeMessages(ArrayList<ChatDay> left, ArrayList<ChatDay> rigth)
+    {
+        ArrayList<ChatDay> merged = new ArrayList<ChatDay>(left.size() + rigth.size());
         
-        return left;
+        int p_left = 0;
+        int p_rigth = 0;
+        
+        while(p_left < left.size() && p_rigth < rigth.size())
+        {
+            if(left.get(p_left).getMessages().size() > rigth.get(p_rigth).getMessages().size())
+            {
+                merged.add(left.get(p_left));
+                p_left++;
+            }
+            else
+            {
+                merged.add(rigth.get(p_rigth));
+                p_rigth++;
+            }
+        }
+        
+        return merged;
     }
     
     /*

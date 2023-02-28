@@ -3,30 +3,24 @@ package app.windows;
 import app.control.ChatData;
 import app.elements.ChatDay;
 import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-
 /**
  *
  * @author Luigi Salcedo
  */
 public class MainWindow extends javax.swing.JFrame 
-{
-
-    private ComboBoxModel<String> comboBoxElements = new DefaultComboBoxModel();
-    
+{   
     public MainWindow() 
     {
-        loadComboBoxElements();
         initComponents();
+        loadComboBoxElements();    
     }
     
     private void loadComboBoxElements()
     {   
         for(ChatDay day : ChatData.chatDays)
         {
-            chatSelectionerBox.addItem(day.getDate());
+            chatSelectionerBox.addItem(day.toString());
         }
-        
     }
 
     /**
@@ -56,8 +50,8 @@ public class MainWindow extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chatSelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(605, Short.MAX_VALUE))
+                .addComponent(chatSelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(424, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

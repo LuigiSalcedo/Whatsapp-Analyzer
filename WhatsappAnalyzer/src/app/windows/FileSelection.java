@@ -161,11 +161,25 @@ public class FileSelection extends javax.swing.JFrame
         
         ld.setVisible(true);
         
+        try
+        {
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException e)
+        {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error: al cargar la información.");
+        }
+        
         Controller.readFile(ld);
         Controller.setStats(ld);
         
         ld.setVisible(false);
+       
+        MainWindow mw = new MainWindow();
         
+        mw.setVisible(true);
+        
+        mw.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_launchButtonActionPerformed
 
     /*
