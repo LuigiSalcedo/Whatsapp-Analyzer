@@ -1,16 +1,12 @@
 package app.windows;
 
 import app.control.Controller;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
 
 /**
  *
@@ -20,16 +16,12 @@ public class FileSelection extends javax.swing.JFrame
 {
     private static File chatFile;
     static FileSelection fs;
-    private Image image;
-    private JLabel labelImage = new JLabel();
-    private JPanel imageZone = new JPanel();
     
     /**
      * Creates new form fileSelector
      */
     public FileSelection() {
         initComponents();
-        loadImage();
         launchButton.setEnabled(false);
         this.setTitle("Whatsapp Analyzer");
     }
@@ -181,32 +173,6 @@ public class FileSelection extends javax.swing.JFrame
     /*
      *  Métodos propios.
      */
-    
-    /*
-     *  Método: loadImage()
-     *
-     *  Se encarga de carga la imagen del menú inicial y mostrarla en pantalla (Por corregir)
-     */
-    public final void loadImage()
-    {
-        try 
-        {
-            image = ImageIO.read(new File("src\\img\\wp_logo.png")).getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-            
-            labelImage.setIcon(new ImageIcon(image));
-            labelImage.setLocation(100, 100);
-            
-            labelImage.setVisible(true);
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-
-        imageZone.add(labelImage);
-        
-        imageZone.setBounds(100, 100, 100, 100);
-        imageZone.setVisible(true);
-    }
     
     public static File getFile()
     {
