@@ -63,6 +63,7 @@ public class FileSelection extends javax.swing.JFrame
         selectFileButton.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         selectFileButton.setText("Select file");
         selectFileButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        selectFileButton.setFocusable(false);
         selectFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectFileButtonActionPerformed(evt);
@@ -75,6 +76,7 @@ public class FileSelection extends javax.swing.JFrame
         launchButton.setBackground(new java.awt.Color(229, 255, 255));
         launchButton.setText("Launch");
         launchButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        launchButton.setFocusable(false);
         launchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 launchButtonActionPerformed(evt);

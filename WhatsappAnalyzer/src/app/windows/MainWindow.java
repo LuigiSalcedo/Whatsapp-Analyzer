@@ -4,7 +4,6 @@ import app.control.ChatData;
 import app.elements.ChatDay;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import static java.awt.event.WindowEvent.WINDOW_DEICONIFIED;
 
 /**
  *
@@ -23,7 +22,7 @@ public class MainWindow extends javax.swing.JFrame
     {   
         for(ChatDay day : ChatData.chatDays)
         {
-            chatSelectionerBox.addItem(day.toString());
+            daySelectionerBox.addItem(day.toString());
         }
     }
     
@@ -50,22 +49,41 @@ public class MainWindow extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chatSelectionerBox = new javax.swing.JComboBox<>();
+        daySelectionerBox = new javax.swing.JComboBox<>();
+        scrollTextArea = new javax.swing.JScrollPane();
+        chatTextArea = new javax.swing.JTextArea();
+        showMessagesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chat stats");
 
-        chatSelectionerBox.setBackground(new java.awt.Color(231, 255, 229));
-        chatSelectionerBox.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        chatSelectionerBox.setMaximumRowCount(20);
-        chatSelectionerBox.setToolTipText("");
-        chatSelectionerBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(228, 250, 231), 1, true));
-        chatSelectionerBox.setFocusable(false);
-        chatSelectionerBox.setLightWeightPopupEnabled(false);
-        chatSelectionerBox.setRequestFocusEnabled(false);
-        chatSelectionerBox.addActionListener(new java.awt.event.ActionListener() {
+        daySelectionerBox.setBackground(new java.awt.Color(231, 255, 229));
+        daySelectionerBox.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        daySelectionerBox.setMaximumRowCount(20);
+        daySelectionerBox.setToolTipText("");
+        daySelectionerBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        daySelectionerBox.setFocusable(false);
+        daySelectionerBox.setLightWeightPopupEnabled(false);
+        daySelectionerBox.setRequestFocusEnabled(false);
+        daySelectionerBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatSelectionerBoxActionPerformed(evt);
+                daySelectionerBoxActionPerformed(evt);
+            }
+        });
+
+        chatTextArea.setColumns(20);
+        chatTextArea.setRows(5);
+        chatTextArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        chatTextArea.setFocusable(false);
+        scrollTextArea.setViewportView(chatTextArea);
+
+        showMessagesButton.setBackground(new java.awt.Color(231, 255, 229));
+        showMessagesButton.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        showMessagesButton.setText("Select day");
+        showMessagesButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        showMessagesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showMessagesButtonActionPerformed(evt);
             }
         });
 
@@ -75,27 +93,54 @@ public class MainWindow extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chatSelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollTextArea)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(daySelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(showMessagesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 581, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chatSelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(daySelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showMessagesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chatSelectionerBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSelectionerBoxActionPerformed
+    private void daySelectionerBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySelectionerBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chatSelectionerBoxActionPerformed
+    }//GEN-LAST:event_daySelectionerBoxActionPerformed
 
-    
-    
+    private void showMessagesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMessagesButtonActionPerformed
+        String daySelectedDate = (String)daySelectionerBox.getSelectedItem();
+        
+        ChatDay daySelected = ChatData.chatDaysHash.get(daySelectedDate);
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(String message : daySelected.getMessages())
+        {
+            sb.append(message).append("\n");
+        }
+        
+        chatTextArea.setText(sb.toString());
+        
+    }//GEN-LAST:event_showMessagesButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> chatSelectionerBox;
+    private javax.swing.JTextArea chatTextArea;
+    private javax.swing.JComboBox<String> daySelectionerBox;
+    private javax.swing.JScrollPane scrollTextArea;
+    private javax.swing.JButton showMessagesButton;
     // End of variables declaration//GEN-END:variables
 }

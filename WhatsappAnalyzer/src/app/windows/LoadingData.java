@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package app.windows;
 
 import javax.swing.JLabel;
 
 /**
  *
- * @author SIS-01
+ * @author Luigi Salcedo
  */
 public class LoadingData extends javax.swing.JFrame {
 
