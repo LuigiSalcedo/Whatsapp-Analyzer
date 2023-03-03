@@ -2,9 +2,7 @@ package app.windows;
 
 import app.control.Controller;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.Image;
 import java.io.File;
 
 
