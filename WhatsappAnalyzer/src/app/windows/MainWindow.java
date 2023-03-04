@@ -55,25 +55,32 @@ public class MainWindow extends javax.swing.JFrame
         showMessagesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Chat stats");
+        setTitle("Chat");
+        setBackground(new java.awt.Color(231, 255, 229));
 
         daySelectionerBox.setBackground(new java.awt.Color(231, 255, 229));
         daySelectionerBox.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         daySelectionerBox.setMaximumRowCount(20);
         daySelectionerBox.setToolTipText("");
-        daySelectionerBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        daySelectionerBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         daySelectionerBox.setFocusable(false);
         daySelectionerBox.setLightWeightPopupEnabled(false);
         daySelectionerBox.setRequestFocusEnabled(false);
+        daySelectionerBox.setVerifyInputWhenFocusTarget(false);
         daySelectionerBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 daySelectionerBoxActionPerformed(evt);
             }
         });
 
+        scrollTextArea.setBackground(new java.awt.Color(0, 0, 0));
+        scrollTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollTextArea.setFocusable(false);
+
         chatTextArea.setColumns(20);
+        chatTextArea.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
         chatTextArea.setRows(5);
-        chatTextArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        chatTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         chatTextArea.setFocusable(false);
         scrollTextArea.setViewportView(chatTextArea);
 
@@ -81,6 +88,7 @@ public class MainWindow extends javax.swing.JFrame
         showMessagesButton.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         showMessagesButton.setText("Select day");
         showMessagesButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        showMessagesButton.setFocusable(false);
         showMessagesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showMessagesButtonActionPerformed(evt);

@@ -13,22 +13,38 @@ import java.util.HashMap;
  */
 public class ChatData 
 {
-    public static ArrayList<Emoji> emojis = new ArrayList<>();
-    public static ArrayList<ChatDay> chatDays = new ArrayList<>();
-    public static HashMap<String, ChatDay> chatDaysHash = new HashMap<>();
-    public static ArrayList<ChatDay> sortedDays = new ArrayList<>();
-    public static ArrayList<Word> sortedWords = new ArrayList<>();
-    public static HashMap<String, Word> usedWords = new HashMap<>();
+    public static ArrayList<Emoji> emojis;
+    public static ArrayList<ChatDay> chatDays;
+    public static HashMap<String, ChatDay> chatDaysHash;
+    public static ArrayList<ChatDay> sortedDays;
+    public static ArrayList<Word> sortedWords;
+    public static HashMap<String, Word> usedWords;
     public static String userName;
     public static String otherName;
     public static int totalMessages;
     public static int average;
     public static int userTotalMessages;
     public static int otherTotalMessages;
-    public static int nMultimedia = 0;
+    public static int nMultimedia;
     
     public static int nDays()
     {
         return chatDays.size();
+    }
+    
+    public static void restartData()
+    {
+        emojis = new ArrayList<>();
+        chatDays = new ArrayList<>();
+        chatDaysHash = new HashMap<>();
+        sortedDays = new ArrayList<>();
+        sortedWords = new ArrayList<>();
+        usedWords = new HashMap<>();
+        totalMessages = 0;
+        average = 0;
+        userTotalMessages = 0;
+        otherTotalMessages = 0;
+        nMultimedia = 0;
+        
     }
 }

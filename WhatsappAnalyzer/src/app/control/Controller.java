@@ -26,6 +26,9 @@ public class Controller
     {
         try
         {
+            // Reiniciamos la información del chat
+            ChatData.restartData();
+            
             // Lector del archivo
             BufferedReader br = new BufferedReader(new FileReader(FileSelection.getFile()));
             
@@ -50,8 +53,10 @@ public class Controller
             while((chatLine = br.readLine()) != null)
             {
                 // Escribiendo de forma factible la información del chat.
+                chatLine = chatLine.replace(" am - ", "a. m. - ");
+                chatLine = chatLine.replace(" pm - ", "p. m. - ");
                 chatLine = chatLine.replace(". - ", ".<<<>>><<<>>>");
-                chatLine = chatLine.replace(" a. m.", "a.m");
+                
                 chatLineInfo = chatLine.split("<<<>>><<<>>>");
                 
                 if(chatLineInfo.length > 0)
@@ -487,7 +492,7 @@ public class Controller
         
         Emoji piv = array.get(0);
         
-        for(int i = 1; i <= array.size(); i++)
+        for(int i = 1; i < array.size(); i++)
         {
             if(array.get(i).getAppaerances() < piv.getAppaerances())
             {
