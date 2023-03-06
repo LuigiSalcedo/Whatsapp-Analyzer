@@ -25,7 +25,8 @@ public class ChatData
     public static int average;
     public static int userTotalMessages;
     public static int otherTotalMessages;
-    public static int nMultimedia;
+    public static int userMultimedia;
+    public static int otherMultimedia;
     
     public static int nDays()
     {
@@ -44,7 +45,7 @@ public class ChatData
         average = 0;
         userTotalMessages = 0;
         otherTotalMessages = 0;
-        nMultimedia = 0;
-        
+        userMultimedia = 0;
+        otherMultimedia = 0;
     }
 }

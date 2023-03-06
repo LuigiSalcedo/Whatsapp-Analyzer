@@ -56,6 +56,7 @@ public class MainWindow extends javax.swing.JFrame
         showMessagesButton = new javax.swing.JButton();
         scrollSearchDayTextArea = new javax.swing.JScrollPane();
         searchDayTextArea = new javax.swing.JTextPane();
+        showChatStatsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chat");
@@ -98,8 +99,20 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
 
+        searchDayTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         searchDayTextArea.setFont(new java.awt.Font("Segoe UI Light", 0, 17)); // NOI18N
         scrollSearchDayTextArea.setViewportView(searchDayTextArea);
+
+        showChatStatsButton.setBackground(new java.awt.Color(231, 255, 229));
+        showChatStatsButton.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        showChatStatsButton.setText("Show chat stats");
+        showChatStatsButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        showChatStatsButton.setFocusable(false);
+        showChatStatsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showChatStatsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,17 +128,19 @@ public class MainWindow extends javax.swing.JFrame
                         .addComponent(scrollSearchDayTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(showMessagesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 383, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
+                        .addComponent(showChatStatsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrollSearchDayTextArea, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(showMessagesButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(daySelectionerBox))
+                    .addComponent(daySelectionerBox)
+                    .addComponent(showChatStatsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showMessagesButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -186,12 +201,17 @@ public class MainWindow extends javax.swing.JFrame
         
     }//GEN-LAST:event_showMessagesButtonActionPerformed
 
+    private void showChatStatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChatStatsButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showChatStatsButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatTextArea;
     private javax.swing.JComboBox<String> daySelectionerBox;
     private javax.swing.JScrollPane scrollSearchDayTextArea;
     private javax.swing.JScrollPane scrollTextArea;
     private javax.swing.JTextPane searchDayTextArea;
+    private javax.swing.JButton showChatStatsButton;
     private javax.swing.JButton showMessagesButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -233,9 +233,16 @@ public class Controller
                 line = message.replaceFirst(userName, "").trim();
                 line = line.replaceFirst(otherName, "").trim();
                 
-                if(line.equals("<Multimedia omitido>"))
+                if(line.equals("<Multimedia omitido>") || line.equals("<Media omitted>"))
                 {
-                    ChatData.nMultimedia += 1;
+                    if(message.contains(ChatData.userName))
+                    {
+                        ChatData.userMultimedia += 1;
+                    }
+                    else
+                    {
+                        ChatData.otherMultimedia += 1;
+                    }
                     continue;
                 }
                 
