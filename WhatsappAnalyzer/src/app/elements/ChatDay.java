@@ -96,10 +96,25 @@ public class ChatDay
 	String date = dateInfo;
 		
 	String [] dayInfo = date.split("/");
+        
+        String day = null;
+        String month = null;
+        String year = null;
 		
-	String day = dayInfo[0];
-	String month = dayInfo[1];
-	String year = dayInfo[2];
+        try
+        {
+            day = dayInfo[0];
+            month = dayInfo[1];
+            year = dayInfo[2];
+            Integer.parseInt(day);
+            Integer.parseInt(month);
+            Integer.parseInt(year);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
         
         return day + " de " + ChatDay.months[Integer.parseInt(month)-1] + " del " + year;
         

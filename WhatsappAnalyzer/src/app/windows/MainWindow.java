@@ -4,6 +4,7 @@ import app.control.ChatData;
 import app.elements.ChatDay;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,6 +54,8 @@ public class MainWindow extends javax.swing.JFrame
         scrollTextArea = new javax.swing.JScrollPane();
         chatTextArea = new javax.swing.JTextArea();
         showMessagesButton = new javax.swing.JButton();
+        scrollSearchDayTextArea = new javax.swing.JScrollPane();
+        searchDayTextArea = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chat");
@@ -95,6 +98,9 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
 
+        searchDayTextArea.setFont(new java.awt.Font("Segoe UI Light", 0, 17)); // NOI18N
+        scrollSearchDayTextArea.setViewportView(searchDayTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,21 +111,24 @@ public class MainWindow extends javax.swing.JFrame
                     .addComponent(scrollTextArea)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(daySelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollSearchDayTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(showMessagesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 581, Short.MAX_VALUE)))
+                        .addGap(0, 383, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(daySelectionerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showMessagesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrollSearchDayTextArea, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(showMessagesButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(daySelectionerBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -130,9 +139,41 @@ public class MainWindow extends javax.swing.JFrame
     }//GEN-LAST:event_daySelectionerBoxActionPerformed
 
     private void showMessagesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMessagesButtonActionPerformed
-        String daySelectedDate = (String)daySelectionerBox.getSelectedItem();
+        String daySelectedDate;
+        
+        daySelectedDate = (String)daySelectionerBox.getSelectedItem();
+        
+        System.out.println("seachDayTextArea = " + searchDayTextArea.getText());
+        
+        System.out.println("Es vacio el seachDayTextArea? = " + searchDayTextArea.getText().isEmpty());
+        
+        // Seleccionar el día escrito y convertirlo.
+        if(!(searchDayTextArea.getText()).isEmpty())
+        {
+            daySelectedDate = searchDayTextArea.getText().trim();
+            daySelectedDate = ChatDay.convertStringToDate(daySelectedDate);
+        }
+        
+        // Si se escribió algo que no es un día
+        if(daySelectedDate == null)
+        {
+            JOptionPane.showMessageDialog(null, "Please, enter the date in format dd/mm/yyyy.", "Date format error", JOptionPane.ERROR_MESSAGE);
+            chatTextArea.setText("");
+            return;
+        }
+        
+        // Si no existe el día escrito
+        if(!ChatData.chatDaysHash.containsKey(daySelectedDate))
+        {
+            JOptionPane.showMessageDialog(null, "There is not message on this day.", "Chat day not found", JOptionPane.INFORMATION_MESSAGE);
+            chatTextArea.setText("");
+            return;            
+        }
         
         ChatDay daySelected = ChatData.chatDaysHash.get(daySelectedDate);
+        
+        // Borrar el día escrito
+        searchDayTextArea.setText("");
         
         StringBuilder sb = new StringBuilder();
         
@@ -148,7 +189,9 @@ public class MainWindow extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatTextArea;
     private javax.swing.JComboBox<String> daySelectionerBox;
+    private javax.swing.JScrollPane scrollSearchDayTextArea;
     private javax.swing.JScrollPane scrollTextArea;
+    private javax.swing.JTextPane searchDayTextArea;
     private javax.swing.JButton showMessagesButton;
     // End of variables declaration//GEN-END:variables
 }
