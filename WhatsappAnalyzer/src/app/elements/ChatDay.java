@@ -112,10 +112,10 @@ public class ChatDay
         }
         catch(Exception e)
         {
-            e.printStackTrace();
             return null;
         }
         
+        if(Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) return null;
         return day + " de " + ChatDay.months[Integer.parseInt(month)-1] + " del " + year;
         
     }

@@ -395,6 +395,9 @@ public class Controller
             }
         }
         
+        merged.addAll(left.subList(p_left, left.size()));
+        merged.addAll(rigth.subList(p_rigth, rigth.size()));
+        
         return merged;
     }
     

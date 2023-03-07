@@ -98,6 +98,11 @@ public class MainWindow extends javax.swing.JFrame
                 showMessagesButtonActionPerformed(evt);
             }
         });
+        showMessagesButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                showMessagesButtonKeyPressed(evt);
+            }
+        });
 
         searchDayTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         searchDayTextArea.setFont(new java.awt.Font("Segoe UI Light", 0, 17)); // NOI18N
@@ -202,6 +207,15 @@ public class MainWindow extends javax.swing.JFrame
         
         cs.setVisible(true);
     }//GEN-LAST:event_showChatStatsButtonActionPerformed
+
+    private void showMessagesButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_showMessagesButtonKeyPressed
+        
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+        {
+            showMessagesButtonActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_showMessagesButtonKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatTextArea;

@@ -39,7 +39,7 @@ public class FileSelection extends javax.swing.JFrame
         selectFileButton = new javax.swing.JButton();
         fileName = new javax.swing.JLabel();
         launchButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        wpImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(500, 300, 0, 0));
@@ -74,7 +74,8 @@ public class FileSelection extends javax.swing.JFrame
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp_logo.png"))); // NOI18N
+        wpImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wp_logo.png"))); // NOI18N
+        wpImage.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,35 +84,38 @@ public class FileSelection extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(message)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fileName))
-                    .addComponent(mainTitle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30))
+                        .addComponent(fileName)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(message)
+                            .addComponent(mainTitle))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(wpImage)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(131, 131, 131)
                 .addComponent(launchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(mainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(message)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selectFileButton)
-                            .addComponent(fileName)))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(message))
+                    .addComponent(wpImage))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectFileButton)
+                    .addComponent(fileName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(launchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -155,13 +159,9 @@ public class FileSelection extends javax.swing.JFrame
     private void launchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchButtonActionPerformed
         
         LoadingData ld = new LoadingData();
-        
-        ld.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
         ld.setVisible(true);
         
-        Controller.readFile(ld);
-        Controller.setStats(ld);
+        ld.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         ld.setVisible(false);
        
@@ -188,10 +188,10 @@ public class FileSelection extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel fileName;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton launchButton;
     private javax.swing.JLabel mainTitle;
     private javax.swing.JLabel message;
     private javax.swing.JButton selectFileButton;
+    private javax.swing.JLabel wpImage;
     // End of variables declaration//GEN-END:variables
 }

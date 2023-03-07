@@ -3,12 +3,16 @@ package app.windows;
 import org.jfree.data.category.DefaultCategoryDataset;
 import app.control.ChatData;
 import app.elements.ChatDay;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -17,9 +21,35 @@ import org.jfree.chart.JFreeChart;
 public class ChatStats extends javax.swing.JFrame 
 {
     private BufferedImage comparationImage;
+    private BufferedImage pieImage;
     
     public ChatStats() 
     {      
+        loadMessagesComparationImage(); // Cargar la imagen de los chats
+        loadPieComparation(); // Cargar gráfica de pastel
+        
+        initComponents();
+        
+        this.setSize(new Dimension(900, 900));
+        
+        pack();
+        repaint();
+    }
+    
+    private void loadPieComparation()
+    {
+        DefaultPieDataset data = new DefaultPieDataset();
+        
+        data.setValue(ChatData.userName + " total messages: " + ChatData.userTotalMessages, ChatData.userTotalMessages);
+        data.setValue(ChatData.otherName + " total messages: " + ChatData.otherTotalMessages, ChatData.otherTotalMessages);
+        
+        JFreeChart messagesComparation = ChartFactory.createPieChart("Messages per person", data, true, true, true);
+        
+        pieImage = messagesComparation.createBufferedImage(400, 300);
+    }
+    
+    private void loadMessagesComparationImage()
+    {
         DefaultCategoryDataset dayMessagesData = new DefaultCategoryDataset(); 
         
         for(ChatDay day : ChatData.chatDays)
@@ -27,14 +57,34 @@ public class ChatStats extends javax.swing.JFrame
             dayMessagesData.setValue(day.getMessages().size(), "Messages", day.getDate());
         }
         
-        JFreeChart dayMessagesComparation = ChartFactory.createBarChart("Comparison of messages per day", "Dates", "Messages", dayMessagesData);
+        JFreeChart dayMessagesComparation = ChartFactory.createBarChart("Comparison of messages per day", "Dates", "Messages", dayMessagesData, PlotOrientation.VERTICAL, true, true, false);
         
-        comparationImage = dayMessagesComparation.createBufferedImage(1000, 500);
+        comparationImage = dayMessagesComparation.createBufferedImage(1100, 500);        
+    }
+    
+    private String getTopDaysMessage()
+    {
+        StringBuilder sb = new StringBuilder("TOP DAYS WITH MORE MESSAGES");
+        sb.append("\n").append("\n");
         
-        initComponents();
+        if(ChatData.chatDays.size() > 10)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                sb.append((i+1)).append(". ").append(ChatData.sortedDays.get(i).toString())
+                        .append(" - Messages: ").append(ChatData.sortedDays.get(i).getMessages().size()).append("\n");
+            }        
+        }
+        else
+        {
+            for(int i = 0; i < ChatData.chatDays.size(); i++)
+            {
+                sb.append((i+1)).append(". ").append(ChatData.sortedDays.get(i).toString())
+                        .append(" - Messages: ").append(ChatData.sortedDays.get(i).getMessages().size()).append("\n");
+            }            
+        }
         
-        pack();
-        repaint();
+        return sb.toString();
     }
 
     /**
@@ -47,26 +97,56 @@ public class ChatStats extends javax.swing.JFrame
     private void initComponents() {
 
         comparationArea = new javax.swing.JLabel();
+        scrollTopDays = new javax.swing.JScrollPane();
+        topDaysText = new javax.swing.JTextArea();
+        pieChartImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBounds(new java.awt.Rectangle(10, 10, 0, 0));
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
 
         comparationArea.setIcon(new ImageIcon(comparationImage));
+        comparationArea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        topDaysText.setEditable(false);
+        topDaysText.setColumns(20);
+        topDaysText.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        topDaysText.setRows(5);
+        topDaysText.setText(getTopDaysMessage());
+        topDaysText.setBorder(null);
+        topDaysText.setOpaque(false);
+        scrollTopDays.setViewportView(topDaysText);
+
+        pieChartImage.setIcon(new ImageIcon(pieImage));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(comparationArea)
-                .addContainerGap(610, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(comparationArea)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrollTopDays, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pieChartImage, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(comparationArea)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pieChartImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollTopDays, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -74,5 +154,9 @@ public class ChatStats extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel comparationArea;
+    private javax.swing.JLabel pieChartImage;
+    private javax.swing.JScrollPane scrollTopDays;
+    private javax.swing.JTextArea topDaysText;
     // End of variables declaration//GEN-END:variables
+
 }

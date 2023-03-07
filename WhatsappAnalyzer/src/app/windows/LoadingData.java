@@ -1,5 +1,6 @@
 package app.windows;
 
+import app.control.Controller;
 import javax.swing.JLabel;
 
 /**
@@ -13,6 +14,8 @@ public class LoadingData extends javax.swing.JFrame {
      */
     public LoadingData() {
         initComponents();
+        Controller.readFile(this);
+        Controller.setStats(this);
     }
 
     /**
