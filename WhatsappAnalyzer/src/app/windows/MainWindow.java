@@ -158,10 +158,6 @@ public class MainWindow extends javax.swing.JFrame
         
         daySelectedDate = (String)daySelectionerBox.getSelectedItem();
         
-        System.out.println("seachDayTextArea = " + searchDayTextArea.getText());
-        
-        System.out.println("Es vacio el seachDayTextArea? = " + searchDayTextArea.getText().isEmpty());
-        
         // Seleccionar el día escrito y convertirlo.
         if(!(searchDayTextArea.getText()).isEmpty())
         {
@@ -202,7 +198,9 @@ public class MainWindow extends javax.swing.JFrame
     }//GEN-LAST:event_showMessagesButtonActionPerformed
 
     private void showChatStatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChatStatsButtonActionPerformed
-        // TODO add your handling code here:
+        ChatStats cs = new ChatStats();
+        
+        cs.setVisible(true);
     }//GEN-LAST:event_showChatStatsButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
