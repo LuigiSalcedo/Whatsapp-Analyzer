@@ -96,18 +96,20 @@ public class ChatStats extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comparationArea = new javax.swing.JLabel();
         scrollTopDays = new javax.swing.JScrollPane();
         topDaysText = new javax.swing.JTextArea();
         pieChartImage = new javax.swing.JLabel();
+        comparationAreaScroll = new javax.swing.JScrollPane();
+        comparationArea = new javax.swing.JLabel();
+        chatSearcherScroll = new javax.swing.JScrollPane();
+        chatSearcherPanel = new javax.swing.JPanel();
+        searchTextArea = new javax.swing.JTextArea();
+        searchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(10, 10, 0, 0));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
-
-        comparationArea.setIcon(new ImageIcon(comparationImage));
-        comparationArea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         topDaysText.setEditable(false);
         topDaysText.setColumns(20);
@@ -119,43 +121,87 @@ public class ChatStats extends javax.swing.JFrame
         scrollTopDays.setViewportView(topDaysText);
 
         pieChartImage.setIcon(new ImageIcon(pieImage));
+        pieChartImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        comparationArea.setIcon(new ImageIcon(comparationImage));
+        comparationArea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        comparationAreaScroll.setViewportView(comparationArea);
+
+        searchTextArea.setColumns(20);
+        searchTextArea.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        searchTextArea.setRows(1);
+        searchTextArea.setText("Type a sentences to search . . .");
+        searchTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        searchTextArea.setName(""); // NOI18N
+
+        searchButton.setBackground(new java.awt.Color(231, 255, 229));
+        searchButton.setText("Search");
+        searchButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout chatSearcherPanelLayout = new javax.swing.GroupLayout(chatSearcherPanel);
+        chatSearcherPanel.setLayout(chatSearcherPanelLayout);
+        chatSearcherPanelLayout.setHorizontalGroup(
+            chatSearcherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chatSearcherPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(chatSearcherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(searchTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        chatSearcherPanelLayout.setVerticalGroup(
+            chatSearcherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chatSearcherPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchButton)
+                .addGap(0, 232, Short.MAX_VALUE))
+        );
+
+        chatSearcherScroll.setViewportView(chatSearcherPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comparationAreaScroll)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollTopDays, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(comparationArea)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scrollTopDays, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pieChartImage, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)))
+                        .addComponent(pieChartImage, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chatSearcherScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comparationArea)
-                .addGap(50, 50, 50)
+                .addComponent(comparationAreaScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrollTopDays)
                     .addComponent(pieChartImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollTopDays, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(chatSearcherScroll))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel chatSearcherPanel;
+    private javax.swing.JScrollPane chatSearcherScroll;
     private javax.swing.JLabel comparationArea;
+    private javax.swing.JScrollPane comparationAreaScroll;
     private javax.swing.JLabel pieChartImage;
     private javax.swing.JScrollPane scrollTopDays;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextArea searchTextArea;
     private javax.swing.JTextArea topDaysText;
     // End of variables declaration//GEN-END:variables
 
