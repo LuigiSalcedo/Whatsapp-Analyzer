@@ -5,9 +5,6 @@ import app.control.ChatData;
 import app.elements.ChatDay;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -64,7 +61,7 @@ public class ChatStats extends javax.swing.JFrame
     
     private String getTopDaysMessage()
     {
-        StringBuilder sb = new StringBuilder("TOP DAYS WITH MORE MESSAGES");
+        StringBuilder sb = new StringBuilder("TOP DAYS WITH HIGHEST MESSAGES NUMBER");
         sb.append("\n").append("\n");
         
         if(ChatData.chatDays.size() > 10)
@@ -98,10 +95,10 @@ public class ChatStats extends javax.swing.JFrame
         comparationArea = new javax.swing.JLabel();
         chatSearcherScroll = new javax.swing.JScrollPane();
         chatSearcherPanel = new javax.swing.JPanel();
-        searchTextArea = new javax.swing.JTextArea();
         searchButton = new javax.swing.JButton();
         resultScroll = new javax.swing.JScrollPane();
         resultTextArea = new javax.swing.JTextArea();
+        searchTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -124,13 +121,6 @@ public class ChatStats extends javax.swing.JFrame
         comparationArea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         comparationAreaScroll.setViewportView(comparationArea);
 
-        searchTextArea.setColumns(20);
-        searchTextArea.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        searchTextArea.setRows(1);
-        searchTextArea.setText("Type a sentences to search . . .");
-        searchTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        searchTextArea.setName(""); // NOI18N
-
         searchButton.setBackground(new java.awt.Color(231, 255, 229));
         searchButton.setText("Search");
         searchButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -142,32 +132,36 @@ public class ChatStats extends javax.swing.JFrame
 
         resultTextArea.setEditable(false);
         resultTextArea.setColumns(20);
+        resultTextArea.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         resultTextArea.setRows(5);
         resultTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         resultScroll.setViewportView(resultTextArea);
+
+        searchTextField.setText("Type a sentence to search . . .");
+        searchTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout chatSearcherPanelLayout = new javax.swing.GroupLayout(chatSearcherPanel);
         chatSearcherPanel.setLayout(chatSearcherPanelLayout);
         chatSearcherPanelLayout.setHorizontalGroup(
             chatSearcherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(resultScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
             .addGroup(chatSearcherPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(chatSearcherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchTextArea, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addGroup(chatSearcherPanelLayout.createSequentialGroup()
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(searchTextField))
                 .addContainerGap())
-            .addComponent(resultScroll, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         chatSearcherPanelLayout.setVerticalGroup(
             chatSearcherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chatSearcherPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resultScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
         );
 
@@ -207,12 +201,7 @@ public class ChatStats extends javax.swing.JFrame
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         
-        if(searchTextArea.getText().equals("") || searchTextArea.getText() == null)
-        {
-            resultTextArea.setText("");
-            return;
-        }
-        if(searchTextArea.getText().equalsIgnoreCase("Type a sentences to search . . ."))
+        if(searchTextField.getText().equals(""))
         {
             resultTextArea.setText("");
             return;
@@ -223,11 +212,11 @@ public class ChatStats extends javax.swing.JFrame
         ChatData
             .chatDays.stream()
             .flatMap(chatDay -> chatDay.getMessages().stream())
-            .filter(message -> message.toLowerCase().contains(searchTextArea.getText().toLowerCase())).forEach(message -> sb.append(message).append("\n"));
+            .filter(message -> message.contains(searchTextField.getText().toLowerCase())).forEach(message -> sb.append(message).append("\n"));
         
         resultTextArea.setText(sb.toString());
         
-        searchTextArea.setText("Type a sentences to search . . .");
+        searchTextField.setText("");
   
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -241,7 +230,7 @@ public class ChatStats extends javax.swing.JFrame
     private javax.swing.JTextArea resultTextArea;
     private javax.swing.JScrollPane scrollTopDays;
     private javax.swing.JButton searchButton;
-    private javax.swing.JTextArea searchTextArea;
+    private javax.swing.JTextField searchTextField;
     private javax.swing.JTextArea topDaysText;
     // End of variables declaration//GEN-END:variables
 
